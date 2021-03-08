@@ -19,6 +19,4 @@ class DataManager:
         json_data = self.get()
         return json_data['prices']
 
-
-pilot = DataManager()
-n = pilot.get_data()
+    def put(self, id):

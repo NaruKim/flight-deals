@@ -4,8 +4,6 @@ from flight_search import FlightSearch
 from flight_data import FlightData
 from notification_manager import NotificationManager
 
-GOOGLE_SHEET = "https://docs.google.com/spreadsheets/d/1EmtXpWtfUnvv4QB4Oww676TQTwUAgYr2Bt2xLYgbnZ0/edit#gid=0"
-
 data = DataManager()
 search = FlightSearch()
 flight = FlightData()
@@ -29,8 +27,6 @@ sheet_data = data.get_data()
 # for i in sheet_data:
 #     data.put(i)
 
-
-
 for i in sheet_data:
     flight_data = flight.flight_get(i)
 
@@ -47,24 +43,28 @@ for i in sheet_data:
     flight_outbound_date = flight_route[0]['local_departure'].split('T')[0]
     flight_inbound_date = flight_route[len(flight_route)-1]['local_departure'].split('T')[0]
 
-    if flight_price < sheet_price:
-        print(f"{flight_to_city}-{flight_to_airport} : {flight_price} ### {sheet_price}")
-        notification.texting(f"""
-            # Price
-            {flight_price}\n
-            # Departure City Name
-            {flight_from_city}\n
-            # Departure Airport IATA Code
-            {flight_from_airport}\n
-            # Arrival City Name
-            {flight_to_city}\n
-            # Arrival Airport IATA Code
-            {flight_to_airport}\n
-            # Outbound Date
-            {flight_outbound_date}\n
-            # Inbound Date       
-            {flight_inbound_date} 
-        """)
+    # if flight_price < sheet_price:
+    notification.mailing(f"From {flight_from_city}-{flight_from_airport} To {flight_to_city}-{flight_to_airport}\nCurrent: ${flight_price} ### Before: ${sheet_price}")
+    print(f"From {flight_from_city}-{flight_from_airport} To {flight_to_city}-{flight_to_airport}\nCurrent:  ${flight_price} ### Before: ${sheet_price}")
+#   SMS-------------------------------------------------------------------------
+#         notification.texting(f"""
+#             # Price
+#             {flight_price}\n
+#             # Departure City Name
+#             {flight_from_city}\n
+#             # Departure Airport IATA Code
+#             {flight_from_airport}\n
+#             # Arrival City Name
+#             {flight_to_city}\n
+#             # Arrival Airport IATA Code
+#             {flight_to_airport}\n
+#             # Outbound Date
+#             {flight_outbound_date}\n
+#             # Inbound Date
+#             {flight_inbound_date}
+#         """)
+#         #SMS-------------------------------------------------------------------------
+
     # print(f"{flight_to_airport} : {flight_outbound_date} - {flight_inbound_date}")
 
 

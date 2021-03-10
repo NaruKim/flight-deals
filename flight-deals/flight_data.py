@@ -27,7 +27,6 @@ class FlightData:
             "nights_in_dst_to": 28,
             "flight_type":"round",
             "one_for_city": 1,
-            "max_stopobers": 0,
             "curr":"GBP",
         }
         response = requests.get(url=TEQUILA_SEARCH_ENDPOINT, params=query, headers=headers)
